@@ -10,13 +10,12 @@ export class PaymentService {
 
   getExchangeRate() {
     return {
-      base: CurrencyTypes.USD,
+      base: CurrencyTypes.NGN,
       rates: {
-        [CurrencyTypes.USD]: 1,
-        [CurrencyTypes.LRD]: 0.03342,
-        [CurrencyTypes.NGN]: 0.07,
-        [CurrencyTypes.EUR]: 1.15,
-        [CurrencyTypes.GBP]: 1.21,
+        [CurrencyTypes.USD]: 0.00067568,
+        [CurrencyTypes.NGN]: 1,
+        [CurrencyTypes.EUR]: 0.0005875,
+        [CurrencyTypes.GBP]: 0.000559,
       },
     };
   }
@@ -24,18 +23,21 @@ export class PaymentService {
   getTotalProductCost(prices: ProductPrice[]): ProductPrice {
     const exchangeRates = this.getExchangeRate().rates;
 
-    const totalInBaseCurrency = prices.reduce(
-      (accum: number, price: ProductPrice) => {
-        const rate = exchangeRates[price.currency] || 1;
-        const convertedPrice = price.amount * rate;
-        return accum + convertedPrice;
-      },
-      0,
-    );
+    const totalInNaira = prices.reduce((accum: number, price: ProductPrice) => {
+      const rate = exchangeRates[price.currency];
+      if (!rate) {
+        throw new Error(
+          `Missing exchange rate for currency: ${price.currency}`,
+        );
+      }
+
+      const convertedPrice = price.amount / rate; // Convert to NGN
+      return accum + convertedPrice;
+    }, 0);
 
     return {
-      amount: parseFloat(totalInBaseCurrency.toFixed(2)),
-      currency: CurrencyTypes.USD,
+      amount: parseFloat(totalInNaira.toFixed(2)),
+      currency: CurrencyTypes.NGN,
     };
   }
 }
