@@ -25,6 +25,7 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
+
   // app.use(
   //   session({
   //     secret: 'my-secret',
@@ -36,6 +37,7 @@ async function bootstrap() {
 
   // app.use(passport.initialize());
   // app.use(passport.session());
+
   await app.listen(5000);
 
   // if (module.hot) {

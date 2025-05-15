@@ -2,10 +2,7 @@ import { CreateDrugDto, DosageForm } from '../dto/create-drug.dto';
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
-import {
-  ProductPrice,
-  ProductQuantity,
-} from 'src/product/dto/create-product.dto';
+import { ProductPrice, ProductQuantity } from 'src/common/dto';
 import { User } from 'src/user/entities/user.entity';
 
 @Schema({ timestamps: true })

@@ -9,10 +9,7 @@ import {
   IsEnum,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import {
-  ProductPrice,
-  ProductQuantity,
-} from 'src/product/dto/create-product.dto';
+import { ProductPrice, ProductQuantity } from 'src/common/dto/';
 
 export enum DosageForm {
   TABLET = 'Tablet',

@@ -18,7 +18,6 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './common/middleware/jwt-auth-guard.middleware';
 import { RolesGuard } from './common/middleware/role-base-guard.middleware';
 import { PaymentModule } from './payment/payment.module';
-import { ProductModule } from './product/product.module';
 import { DoctorModule } from './doctor/doctor.module';
 import { PharmacyModule } from './pharmacy/pharmacy.module';
 import { DrugsModule } from './drugs/drugs.module';
@@ -28,7 +27,6 @@ import { DrugsModule } from './drugs/drugs.module';
     AuthModule,
     UserModule,
     AdminModule,
-    ProductModule,
     DrugsModule,
     DoctorModule,
     PharmacyModule,

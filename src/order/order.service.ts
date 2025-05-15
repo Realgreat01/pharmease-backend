@@ -9,8 +9,7 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 import { Order } from './entities/order.entity';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { ProductPrice } from 'src/product/dto/create-product.dto';
-// import { CurrencyTypes } from 'src/payment/dto/create-payment.dto';
+import { ProductPrice } from 'src/common/dto';
 
 @Injectable()
 export class OrderService {
@@ -33,10 +32,10 @@ export class OrderService {
     });
   }
 
-  async findAll() {
-    const initOrders = await this.orderModel.find();
+  async findAll(buyerId: string) {
+    const initOrders = await this.orderModel.find({ buyerId });
 
-    if (!initOrders) throw new NotFoundException('Order not found!');
+    if (!initOrders) throw new NotFoundException('No order found for buyer!');
 
     const orders = initOrders.map((order) => {
       const orderPrice = order.products.map(

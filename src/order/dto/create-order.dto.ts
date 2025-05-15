@@ -16,11 +16,8 @@ import {
   ValidateNested,
 } from 'class-validator';
 
-import {
-  DeliveryOption,
-  ProductPrice,
-} from 'src/product/dto/create-product.dto';
-import { Product } from 'src/product/entities/product.entity';
+import { DeliveryOption, ProductPrice } from 'src/common/dto';
+import { Drug } from 'src/drugs/entities/drug.entity';
 
 import { UserAddressDto } from 'src/user/dto/create-user.dto';
 import { User } from 'src/user/entities/user.entity';
@@ -56,7 +53,7 @@ export class StatusHistory {
 export class OrderProducts {
   @IsMongoId()
   @IsNotEmpty()
-  productId: Product | string;
+  productId: Drug | string;
 
   @IsPositive()
   @IsNumber()
@@ -93,6 +90,7 @@ export class OrderShippingInfo {
   @IsOptional()
   estimated_delivery_date: string;
 }
+
 export class CreateOrderDto {
   @IsArray()
   @ValidateNested({ each: true })

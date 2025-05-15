@@ -27,8 +27,8 @@ export class OrderController {
   }
 
   @Get()
-  findAll() {
-    return this.orderService.findAll();
+  findAll(@Req() req: IRequest) {
+    return this.orderService.findAll(req.user.id);
   }
 
   @Get(':id')

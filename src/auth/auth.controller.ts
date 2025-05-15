@@ -45,8 +45,17 @@ export class AuthController {
   @Public()
   @Post('/logout')
   @UseGuards(LocalAuthGuard)
-  async logout(@Req() req: IRequest) {
-    return req.logOut;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async signout(@Req() req: IRequest) {
+    return new Promise<void>((resolve, reject) => {
+      req.logOut((err: any) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
   }
 
   @Public()

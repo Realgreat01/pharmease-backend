@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CurrencyTypes } from '../dto/create-payment.dto';
-import { ProductPrice } from 'src/product/dto/create-product.dto';
+import { ProductPrice } from 'src/common/dto';
 // import { CreatePaymentDto } from './dto/create-payment.dto';
 // import { UpdatePaymentDto } from './dto/update-payment.dto';
 

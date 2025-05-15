@@ -9,7 +9,8 @@ import {
 } from '../dto/create-order.dto';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { User } from 'src/user/entities/user.entity';
-import { Product } from 'src/product/entities/product.entity';
+import { Drug } from 'src/drugs/entities/drug.entity';
+import { DeliveryOption } from 'src/common/dto';
 
 @Schema()
 class OrderProductSchema extends Document implements OrderProducts {
@@ -17,10 +18,10 @@ class OrderProductSchema extends Document implements OrderProducts {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     immutable: true,
-    ref: Product.name,
+    ref: Drug.name,
     autopopulate: { select: 'name price status discount', maxDepth: 0 },
   })
-  productId: Product;
+  productId: Drug;
 
   @Prop({ min: 1 })
   quantity: number;
@@ -66,6 +67,9 @@ export class Order extends Document implements CreateOrderDto {
 
   @Prop({ minlength: 8, maxlength: 8 })
   discount_code: string;
+
+  @Prop({ default: DeliveryOption.LOCAL, enum: DeliveryOption })
+  delivery_type: DeliveryOption;
 
   @Prop({ type: OrderShippingInfo })
   shipping_info: OrderShippingInfo;
