@@ -1,3 +1,5 @@
+import { IsMongoId, IsNotEmpty, IsString } from 'class-validator';
+
 export enum CurrencyTypes {
   USD = 'USD',
   NGN = 'NGN',
@@ -5,4 +7,9 @@ export enum CurrencyTypes {
   GBP = 'GBP',
 }
 
-export class CreatePaymentDto {}
+export class CreatePaymentDto {
+  @IsString()
+  @IsNotEmpty()
+  @IsMongoId()
+  orderId: string;
+}

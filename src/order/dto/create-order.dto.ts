@@ -20,7 +20,6 @@ import { DeliveryOption, ProductPrice } from 'src/common/dto';
 import { Drug } from 'src/drugs/entities/drug.entity';
 
 import { UserAddressDto } from 'src/user/dto/create-user.dto';
-import { User } from 'src/user/entities/user.entity';
 
 export enum OrderStatus {
   PENDING = 'PENDING',
@@ -45,9 +44,6 @@ export class StatusHistory {
 
   @IsDateString()
   timestamp: string;
-
-  @IsMongoId()
-  user: string | User;
 }
 
 export class OrderProducts {
@@ -63,14 +59,17 @@ export class OrderProducts {
 }
 
 export class OrderPayment {
+  @IsEnum(OrderPaymentStatus)
+  status: OrderPaymentStatus;
+
   @IsString()
   payment_method: string;
 
   @IsString()
   transactionId: string;
 
-  @IsEnum(OrderPaymentStatus)
-  status: OrderPaymentStatus;
+  @IsDateString()
+  timestamp: string;
 }
 
 export class OrderShippingInfo {

@@ -20,16 +20,8 @@ export class OrderService {
 
   create(buyerId: string, createOrderDto: CreateOrderDto) {
     const order = { buyerId, ...createOrderDto };
-    const status_history: StatusHistory = {
-      user: buyerId,
-      timestamp: new Date().toISOString(),
-      status: OrderStatus.PENDING,
-    };
-    return this.orderModel.create({
-      ...order,
-      status_history,
-      status: OrderStatus.PENDING,
-    });
+
+    return this.orderModel.create(order);
   }
 
   async findAll(buyerId: string) {
@@ -46,7 +38,10 @@ export class OrderService {
       );
       const total_cost = this.paymentService.getTotalProductCost(orderPrice);
       const formattedOrder = order.toObject();
-      return { ...formattedOrder, total_cost };
+      return {
+        ...formattedOrder,
+        total_cost,
+      };
     });
     return orders;
   }
@@ -74,7 +69,6 @@ export class OrderService {
 
   async updateStatus(id: string, userId: string, status: OrderStatus) {
     const status_history: StatusHistory = {
-      user: userId,
       timestamp: new Date().toISOString(),
       status: status,
     };

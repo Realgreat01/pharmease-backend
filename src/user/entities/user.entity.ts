@@ -33,6 +33,9 @@ export class User extends Document implements CreateUserDto {
   @Prop({ required: true })
   lastname: string;
 
+  @Prop({})
+  fullname: string;
+
   @Prop({ type: UserAddressDto, required: false })
   address: UserAddressDto;
 
@@ -41,3 +44,8 @@ export class User extends Document implements CreateUserDto {
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
+
+UserSchema.pre<User>('save', function (next) {
+  this.fullname = `${this.firstname} ${this.lastname}`;
+  next();
+});
